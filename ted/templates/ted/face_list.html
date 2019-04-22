@@ -1,0 +1,15 @@
+
+{% extends 'generic/base.html'%}
+
+{% block content %}
+<h4>All Faces</h4>
+
+<ul>
+    {% for face in faces %}
+    <li><a href="{{ face.id }}">{{ face.name }}</a></li>
+    {% endfor %}
+</ul>
+
+<a class="button" href="{% url 'face_add' %}">Create New Face</a>
+
+{% endblock content %}
