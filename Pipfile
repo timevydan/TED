@@ -9,6 +9,8 @@ verify_ssl = true
 opencv-python = "*"
 numpy = "*"
 autopep8 = "*"
+pillow = "*"
+opencv-contrib-python = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.5"
