@@ -30,7 +30,7 @@ body = 'Unknown face detected -- see attachment.'
 msg.attach(MIMEText(body, 'plain'))
 
 # include an attachment to the email
-file_name = 'kaja.mp4'
+file_name = './test_assets/kaja.mp4'
 attachment = open(file_name, 'rb')
 part = MIMEBase('application', 'octet-stream')
 part.set_payload((attachment).read())
