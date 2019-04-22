@@ -32,7 +32,9 @@ We will deploy this on AWS.
 
 ## Versioning
 
- 
+## Date Log
+ * Friday 4/19/19 -- Camera and RaspPi linked,  OS for Raspberry Pi Installed
+ * Monday 4/22/19 --  
 
 ## Authors
 

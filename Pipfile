@@ -3,10 +3,14 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-flake8 = "*"
 
 [packages]
+opencv-python = "*"
+numpy = "*"
+autopep8 = "*"
+pillow = "*"
+opencv-contrib-python = "*"
+flake8 = "*"
 astroid = "==2.2.5"
 django-redis = "==4.10.0"
 django-registration = "==3.0"
