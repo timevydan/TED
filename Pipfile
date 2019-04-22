@@ -7,6 +7,27 @@ verify_ssl = true
 
 [packages]
 python-dotenv = "*"
+flake8 = "*"
+astroid = "==2.2.5"
+django-redis = "==4.10.0"
+django-registration = "==3.0"
+djangorestframework = "==3.9.2"
+gunicorn = "==19.9.0"
+isort = "==4.3.17"
+lazy-object-proxy = "==1.3.1"
+mccabe = "==0.6.1"
+psycopg2-binary = "==2.8.2"
+pylint = "==2.3.1"
+pytz = "==2019.1"
+redis = "==3.2.1"
+six = "==1.12.0"
+sqlparse = "==0.3.0"
+typed-ast = "==1.3.4"
+wrapt = "==1.11.1"
+confusable_homoglyphs = "==3.2.0"
+Django = "==2.2"
+SQLAlchemy = "==1.3.3"
+docker-compose = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
