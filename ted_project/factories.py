@@ -4,7 +4,7 @@ from ted.models import Face, Picture
 
 
 class UserFactory(factory.django.DjangoModelFactory):
-
+    """Defines a user for testing."""
     class Meta:
         model = User
 
@@ -15,7 +15,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class FaceFactory(factory.django.DjangoModelFactory):
-
+    """Defines a recognized visitor instance for testing."""
     class Meta:
         model = Face
 
@@ -23,7 +23,7 @@ class FaceFactory(factory.django.DjangoModelFactory):
 
 
 class PictureFactory(factory.django.DjangoModelFactory):
-
+    """Defines an image url for testing."""
     class Meta:
         model = Picture
 

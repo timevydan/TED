@@ -15,7 +15,7 @@ class TestPictureModel(TestCase):
 
     def setUp(self):
         self.picture = PictureFactory(url='test.url')
-    
+
     def test_picture_attributes(self):
         self.assertEqual(self.picture.face.name, 'test_name')
         self.assertEqual(self.picture.url, 'test.url')

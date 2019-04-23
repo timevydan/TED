@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 flake8 = "*"
 coverage = "*"
+autopep8 = "*"
 
 [packages]
 asn1crypto = "==0.24.0"
