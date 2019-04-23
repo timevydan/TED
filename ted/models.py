@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.utils import timezone
 
-# Create your models here.
 
+# Create your models here.
 class Face(models.Model):
     name = models.CharField(max_length=180, default='Untitled')
 
@@ -13,7 +13,8 @@ class Face(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
-        
+
+
 class Picture(models.Model):
     face = models.ForeignKey(
         Face,
@@ -21,6 +22,7 @@ class Picture(models.Model):
         related_name='pictures'
     )
     url = models.CharField(max_length=1024, default='Untitled')
+    
     def __repr__(self):
         return '<Picture: {} | {}>'.format(self.face, self.url)
 
