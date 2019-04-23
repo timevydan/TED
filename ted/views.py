@@ -40,6 +40,7 @@ class PictureListView(LoginRequiredMixin, ListView):
         context['face'] = Face.objects.get(pk=self.kwargs['pk'])
         return context
 
+
 class PictureCreateView(LoginRequiredMixin, CreateView):
     model = Picture
     template_name = 'ted/picture_add.html'
@@ -54,4 +55,4 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('picture_add', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('urls', kwargs={'pk': self.kwargs['pk']})
