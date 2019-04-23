@@ -23,15 +23,44 @@ class TestFaceListView(TestCase):
 
 
 class TestCreateFaceView(TestCase):
-    def setup(self):
+    def setUp(self):
+        self.user = UserFactory()
+        self.user.set_password('password')
+        self.user.save()
+        self.c = Client()
+
+    def test_create_face_adds_new_face(self):
+        self.c.login(username=self.user.username, password='password')
+        form_data = {'name': 'Pokerface'}
+        res = self.c.post('/faces/add_face', form_data, follow=True)
+        self.assertIn(b'Pokerface', res.content)
+
+
+class TestPictureListView(TestCase):
+    def setUp(self):
+        self.user = UserFactory()
+        self.user.set_password('password')
+        self.user.save()
+        self.c = Client()  
+        self.face = FaceFactory()
+
+    def test_picture_list_view(self):
+        self.c.login(username=self.user.username, password='password')
+        res = self.c.get('/faces/1', follow=True)
+        self.assertEqual(res.status_code, 200)
+        self.assertIn(b'<title>PICTURES</title>', res.content)
+
+
+class TestPictureAddView(TestCase):
+    def setUp(self):
         self.user = UserFactory()
         self.user.set_password('password')
         self.user.save()
         self.c = Client()
         self.face = FaceFactory()
 
-    def test_create_face_adds_new_face(self):
+    def test_add_picture_adds_new_url(self):
         self.c.login(username=self.user.username, password='password')
-        form_data = {'name': 'pokerface'}
-        res = self.c.post('/faces/add_face', form_data, follow=True)
-        self.assertIn(b'pokerface', res.content)
+        form_data = {'url': 'Pokerface.jpg'}
+        res = self.c.post('/faces/1/add/', form_data, follow=True)
+        self.assertIn(b'<img src="Pokerface.jpg"', res.content)
