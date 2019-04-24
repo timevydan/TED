@@ -7,6 +7,7 @@
 <ul>
     {% for picture in pictures %}
     <li><img src="{{ picture.url }}" width="200" height="200"></li>
+    <a href="{% url 'picture_delete' picture.id %}">Remove</a>
     {% endfor %}
 </ul>
 

@@ -1,4 +1,3 @@
-
 {% extends 'generic/base.html'%}
 
 {% block content %}
@@ -6,7 +5,7 @@
 
 <ul>
     {% for face in faces %}
-    <li><a href="{{ face.id }}">{{ face.name }}</a></li>
+    <li><a href="{{ face.id }}">{{ face.name }}</a> - <a href="{% url 'face_delete' face.id %}">Remove</a></li>
     {% endfor %}
 </ul>
 
