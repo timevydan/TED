@@ -73,6 +73,7 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
 
 
 class DeleteFaceView(DeleteView):
+    """Delete a recognized visitor from the database."""
     model = Face
     template_name = 'ted/face_delete.html'
     context_object_name = 'face'
@@ -80,8 +81,13 @@ class DeleteFaceView(DeleteView):
 
 
 class DeletePictureView(DeleteView):
+    """Delete a picture of a recognized visitor from the database."""
     model = Picture
     template_name = 'ted/picture_delete.html'
     context_object_name = 'picture'
-    success_url = reverse_lazy('urls', kwargs={'pk': self.kwargs['pk']})
-    # 'self' is not defined. Must pass kwarg of pk= relevant Face id to the picture that is being deleted, but not sure how to grab that...
+    success_url = ''
+
+    def get_success_url(self):
+        """Redirect to the list of pictures of a recognized visitor."""
+        print('____________face', self.model)
+        return reverse_lazy('urls', kwargs={'pk': self.kwargs['pk']})
