@@ -85,9 +85,9 @@ class DeletePictureView(DeleteView):
     model = Picture
     template_name = 'ted/picture_delete.html'
     context_object_name = 'picture'
-    success_url = ''
+    success_url = reverse_lazy('')
 
     def get_success_url(self):
         """Redirect to the list of pictures of a recognized visitor."""
-        print('____________face', self.model)
-        return reverse_lazy('urls', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('urls', kwargs={'pk': self.object.face.id})
+        
