@@ -3,13 +3,14 @@ import numpy as np
 from PIL import Image
 import pickle
 import cv2
+from skimage.io import imread
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 image_dir = os.path.join(BASE_DIR, "images")
 
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-lefteye_cascade = cv2.CascadeClassifier('haarcascade_lefteye.xml')
+face_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_frontalface_default.xml')
+lefteye_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_lefteye.xml')
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 current_id = 0
@@ -28,20 +29,26 @@ for root, dirs, files in os.walk(image_dir):
                 label_ids[label] = current_id
                 current_id +=1
             id_ = label_ids[label]
-            
-            pil_image = Image.open(path).convert("L")  # converst to grayscale
-            image_array = np.array(pil_image, "uint8")
+            pil_image = imread(path)
+            pil_image = cv2.cvtColor(pil_image, cv2.COLOR_BGR2GRAY)
+            # pil_image1 = cv2.resize(pil_image, None, fx=2.5, fy=2.5,interpolation=cv2.INTER_CUBIC)
+            # image_array = np.array(pil_image1, "uint8")
+            pil_image2 = cv2.resize(pil_image, None, fx=1, fy=1,interpolation=cv2.INTER_CUBIC)
+            image_array = np.array(pil_image2, "uint8")
+            pil_image3 = cv2.resize(pil_image, None, fx=1.5, fy=1.5,interpolation=cv2.INTER_CUBIC)
+            image_array = np.array(pil_image3, "uint8")
             # print(image_array)
-            faces = face_cascade.detectMultiScale(image_array,scaleFactor=1.05, minNeighbors=5)
+            faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.25, minNeighbors=1)
             for(x, y, w, h) in faces: 
                 roi = image_array[y:y+h, x:x+w]
-                eye= lefteye_cascade.detectMultiScale(roi)
-                for (ex,ey,ew,eh) in eye:
-                    roi_eye = lefteye_cascade.detectMultiScale(roi, scaleFactor=1.05, minNeighbors=3)
-                    print(roi_eye)
+                # eye= lefteye_cascade.detectMultiScale(roi)
+                # for (ex,ey,ew,eh) in eye:
+                #     roi_eye = lefteye_cascade.detectMultiScale(roi, scaleFactor=1.05, minNeighbors=3)
+                
+                print(roi)
 
-                    x_train.append(roi_eye)
-                    y_labels.append(id_)
+                x_train.append(roi)
+                y_labels.append(id_)
 
 with open("labels.pickle",'wb') as f :
     pickle.dump(label_ids,f)
