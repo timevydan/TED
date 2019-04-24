@@ -77,3 +77,11 @@ class DeleteFaceView(DeleteView):
     template_name = 'ted/face_delete.html'
     context_object_name = 'face'
     success_url = reverse_lazy('face_list')
+
+
+class DeletePictureView(DeleteView):
+    model = Picture
+    template_name = 'ted/picture_delete.html'
+    context_object_name = 'picture'
+    success_url = reverse_lazy('urls', kwargs={'pk': self.kwargs['pk']})
+    # 'self' is not defined. Must pass kwarg of pk= relevant Face id to the picture that is being deleted, but not sure how to grab that...
