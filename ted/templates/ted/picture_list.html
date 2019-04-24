@@ -1,10 +1,13 @@
 {% extends 'generic/base.html'%}
 
+{% block title %}PICTURES{% endblock title %}
+
 {% block content %}
 <h4>{{ Face.name }} Pictures</h4>
 <ul>
     {% for picture in pictures %}
-    <li><a href="">{{ picture.url }} </a></li>
+    <li><img src="{{ picture.url }}" width="200" height="200"></li>
+    <a href="{% url 'picture_delete' picture.id %}">Remove</a>
     {% endfor %}
 </ul>
 
