@@ -53,6 +53,7 @@ SQLAlchemy = "==1.3.3"
 websocket_client = "==0.56.0"
 python-dotenv = "*"
 factory-boy = "*"
+watchdog = "*"
 
 [requires]
 python_version = "3.7"
