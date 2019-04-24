@@ -12,40 +12,42 @@ from email import encoders
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-# Define to/from email addresses and subject information
-from_addr = os.environ.get('FROM_ADDR')
-password = os.environ.get('FROM_PASSWORD')
-to_addr = os.environ.get('TO_ADDR')
 
-subject = 'SnakeEyes Notification'
+def send_email(file_name):
+    # Define to/from email addresses and subject information
+    from_addr = os.environ.get('FROM_ADDR')
+    password = os.environ.get('FROM_PASSWORD')
+    to_addr = os.environ.get('TO_ADDR')
 
-# Create multi-part email instance and add pre-defined variables
-msg = MIMEMultipart()
-msg['From'] = from_addr
-msg['To'] = to_addr
-msg['Subject'] = subject
+    subject = 'SnakeEyes Notification'
 
-# attach the text of the body of the email
-body = 'Unknown face detected -- see attachment.'
-msg.attach(MIMEText(body, 'plain'))
+    # Create multi-part email instance and add pre-defined variables
+    msg = MIMEMultipart()
+    msg['From'] = from_addr
+    msg['To'] = to_addr
+    msg['Subject'] = subject
 
-# include an attachment to the email
-file_name = 'kaja.mp4'
-attachment = open('./test_assets/kaja.mp4', 'rb')
-part = MIMEBase('application', 'octet-stream')
-part.set_payload((attachment).read())
-encoders.encode_base64(part)
-part.add_header('Content-Disposition', "attachment; filename= " + file_name)
-msg.attach(part)
+    # attach the text of the body of the email
+    body = 'Unknown face detected -- see attachment.'
+    msg.attach(MIMEText(body, 'plain'))
 
-# open gmail server and login as sender
-server = smtplib.SMTP('smtp.gmail.com:587')
-server.starttls()
-server.login(from_addr, password)
+    # include an attachment to the email
+    attachment_name = 'TED Alert'
+    attachment = open(file_name, 'rb')
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload((attachment).read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', "attachment; filename= " + attachment_name)
+    msg.attach(part)
 
-# send the email
-text = msg.as_string()
-server.sendmail(from_addr, to_addr, text)
+    # open gmail server and login as sender
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login(from_addr, password)
 
-# close the server
-server.quit()
+    # send the email
+    text = msg.as_string()
+    server.sendmail(from_addr, to_addr, text)
+
+    # close the server
+    server.quit()
