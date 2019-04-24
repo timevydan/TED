@@ -1,6 +1,6 @@
 {
-    "python.pythonPath": "/Users/danle/.local/share/virtualenvs/TED-eIeuVMl3/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
+    "python.pythonPath": "/home/evyhaan/.local/share/virtualenvs/TED-5JkU6VNu/bin/python",
 }
