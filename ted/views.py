@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Face, Picture
 from .forms import FaceForm, PictureForm
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, DeleteView
 
 # Create your views here.
 
@@ -70,3 +70,10 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         """Redirect to the list of recognized visitor."""
         return reverse_lazy('urls', kwargs={'pk': self.kwargs['pk']})
+
+
+class DeleteFaceView(DeleteView):
+    model = Face
+    template_name = 'ted/face_delete.html'
+    context_object_name = 'face'
+    success_url = reverse_lazy('face_list')
