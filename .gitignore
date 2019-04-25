@@ -61,4 +61,6 @@ typings/
 .next
 
 # vscode is a no-go
-.vscode
+.vscode/
+
+.vscode/settings.json

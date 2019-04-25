@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.dispatch import receiver
-from django.utils import timezone
 
 
 # Create your models here.
@@ -35,7 +33,7 @@ class Picture(models.Model):
         related_name='pictures'
     )
     url = models.CharField(max_length=1024, default='Untitled')
-    
+
     def __repr__(self):
         return '<Picture: {} | {}>'.format(self.face, self.url)
 
