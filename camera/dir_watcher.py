@@ -14,7 +14,7 @@ from email import encoders
 
 
 class Watcher:
-    DIRECTORY_TO_WATCH = './test_subjects'
+    DIRECTORY_TO_WATCH = './camera/test_subjects'
 
     def __init__(self):
         self.observer = Observer()
@@ -39,17 +39,16 @@ class Handler(FileSystemEventHandler):
 
     @staticmethod
     def on_created(event):
-        for path, subdirs, files in os.walk('test_subjects'):
+        for path, subdirs, files in os.walk('camera/test_subjects'):
             for name in files:
                 file_name = os.path.join(path, name)
-                print(file_name)
-                print(path)
-        send_email(file_name)
+                test_name = os.path.abspath(file_name)
+        send_email(test_name)
         os.system('rm -rf ' + file_name)
 
 
 # load sender email and password and recipient password from .env file
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../.env')
 load_dotenv(dotenv_path)
 
 
@@ -77,7 +76,8 @@ def send_email(file_name):
     part = MIMEBase('application', 'octet-stream')
     part.set_payload((attachment).read())
     encoders.encode_base64(part)
-    part.add_header('Content-Disposition', "attachment; filename= " + attachment_name)
+    part.add_header('Content-Disposition',
+                    "attachment; filename= " + attachment_name)
     msg.attach(part)
 
     # open gmail server and login as sender
