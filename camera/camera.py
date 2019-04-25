@@ -18,9 +18,9 @@ def find_faces():
 
     lefteye_cascade = CascadeClassifier('haarcascade/haarcascade_lefteye.xml')
     video_capture = cv2.VideoCapture(0)
-    picture_counter=0
-    frame_couner=0
-    picture_flag= False
+    picture_counter = 0
+    frame_couner = 0
+    picture_flag = False
     while True:
         # Capture Frame by Frame
         ret, frame = video_capture.read()
@@ -60,7 +60,7 @@ def find_faces():
                 for (ex, ey, ew, eh) in eyes:
                     cv2.rectangle(roi_color, (ex, ey),
                                   (ex+ew, ey+eh), (255, 0, 255), 3)
-           
+
         cv2.putText(frame, "Number of faces detected: " + str(
             face_dic["total"]),  (0, 100), cv2.FONT_HERSHEY_TRIPLEX, 0.5,  (255, 0, 0), 1)
         cv2.putText(frame, "Number of faces known: " + str(
@@ -68,19 +68,17 @@ def find_faces():
 
         # Dipsplay the resulting frame
         cv2.imshow('Video', frame)
-        
+
         if face_dic["known"] == 0 and face_dic["total"] >= 1:
             if picture_flag == False:
-                print("Saving IMG")
-                picture_counter+=1
-                cv2.imwrite("images/saved/"+str(picture_counter)+".png",frame)
+                picture_counter += 1
+                cv2.imwrite("test_subjects/" +
+                            str(picture_counter)+".png", frame)
                 picture_flag = True
-            picture_counter +=1
+            picture_counter += 1
             if picture_counter == 120:
-                picture_flag=False
-                picture_counter=0
-
-
+                picture_flag = False
+                picture_counter = 0
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
