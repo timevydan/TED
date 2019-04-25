@@ -14,7 +14,7 @@ from email import encoders
 
 
 class Watcher:
-    DIRECTORY_TO_WATCH = './test_assets'
+    DIRECTORY_TO_WATCH = './test_git subjects'
 
     def __init__(self):
         self.observer = Observer()
@@ -39,7 +39,7 @@ class Handler(FileSystemEventHandler):
 
     @staticmethod
     def on_created(event):
-        for path, subdirs, files in os.walk('test_assets'):
+        for path, subdirs, files in os.walk('test_subjects'):
             for name in files:
                 file_name = os.path.join(path, name)
         send_email(file_name)
