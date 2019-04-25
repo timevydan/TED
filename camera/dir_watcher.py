@@ -42,6 +42,8 @@ class Handler(FileSystemEventHandler):
         for path, subdirs, files in os.walk('test_subjects'):
             for name in files:
                 file_name = os.path.join(path, name)
+                print(file_name)
+                print(path)
         send_email(file_name)
         os.system('rm -rf ' + file_name)
 
