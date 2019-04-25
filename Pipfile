@@ -54,6 +54,7 @@ websocket_client = "==0.56.0"
 python-dotenv = "*"
 factory-boy = "*"
 watchdog = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"

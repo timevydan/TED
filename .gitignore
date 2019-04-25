@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+# vscode is a no-go
+.vscode
