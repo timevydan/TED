@@ -14,7 +14,7 @@ from email import encoders
 
 
 class Watcher:
-    DIRECTORY_TO_WATCH = './test_git subjects'
+    DIRECTORY_TO_WATCH = './test_subjects'
 
     def __init__(self):
         self.observer = Observer()
