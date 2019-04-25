@@ -6,4 +6,6 @@ def home_view(request):
     context = {
         'message': 'hello'
     }
+    import pdb; pdb.set_trace()
+
     return render(request, 'generic/home.html', context)
