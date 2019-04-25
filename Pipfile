@@ -54,7 +54,8 @@ websocket_client = "==0.56.0"
 python-dotenv = "*"
 factory-boy = "*"
 watchdog = "*"
-psycopg2 = "*"
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.7"
