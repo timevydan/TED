@@ -29,6 +29,7 @@ def connect():
         for row in rows:
             people[row[0]] = row[1]
             dir = './images/' + row[1]
+
             try:
                 os.mkdir(dir)
             except:

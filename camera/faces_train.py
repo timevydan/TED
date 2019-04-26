@@ -43,7 +43,7 @@ def train_faces():
                 for(x, y, w, h) in faces: 
                     roi = image_array[y:y+h, x:x+w]
                     print(roi)
-                    x_train.append(roi)
+≈                    x_train.append(roi)
                     y_labels.append(id_)
 
     with open("./labels.pickle",'wb') as f :
