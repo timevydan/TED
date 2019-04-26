@@ -26,7 +26,7 @@ def connect():
         for row in rows:
             people[row[0]] = row[1]
             dir = './images/' + row[1]
-            # os.mkdir(dir)
+            os.mkdir(dir)
 
         cur.execute('select * from ted_face inner join ted_picture on ted_face.id=ted_picture.face_id;')
         row2 = cur.fetchall()
