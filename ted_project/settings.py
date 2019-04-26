@@ -160,3 +160,4 @@ MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = 'https://{}/{}/'.format(
         AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION
     )
+AWS_DEFAULT_ACL = None
