@@ -7,11 +7,20 @@ from skimage.io import imread
 
 
 def train_faces():
+    """Camera facial recoginition training.
+
+    Each image's features within each subfolder of the 'images' directory is
+    compiled by the camera for recogintion training, associating the name of
+    the subdirectory with the collection of faces within it.
+    """
+
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     image_dir = os.path.join(BASE_DIR, "images")
 
-    face_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_frontalface_default.xml')
-    lefteye_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_lefteye.xml')
+    face_cascade = cv2.CascadeClassifier(
+        'haarcascade/haarcascade_frontalface_default.xml')
+    lefteye_cascade = cv2.CascadeClassifier(
+        'haarcascade/haarcascade_lefteye.xml')
     recognizer = cv2.face.LBPHFaceRecognizer_create()
 
     current_id = 0
@@ -26,26 +35,26 @@ def train_faces():
                 label = os.path.basename(root).replace(" ", "-").lower()
 
                 print(label, path)
-                if  not label in label_ids:
+                if label not in label_ids:
                     label_ids[label] = current_id
-                    current_id +=1
+                    current_id += 1
                 id_ = label_ids[label]
                 pil_image = imread(path)
                 pil_image = cv2.cvtColor(pil_image, cv2.COLOR_BGR2GRAY)
-                pil_image2 = cv2.resize(pil_image, None, fx=1, fy=1,interpolation=cv2.INTER_CUBIC)
+                pil_image2 = cv2.resize(pil_image, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
                 image_array = np.array(pil_image2, "uint8")
-                pil_image3 = cv2.resize(pil_image, None, fx=1.5, fy=1.5,interpolation=cv2.INTER_CUBIC)
+                pil_image3 = cv2.resize(pil_image, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
                 image_array = np.array(pil_image3, "uint8")
-                # print(image_array)
                 faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.25, minNeighbors=1)
-                for(x, y, w, h) in faces: 
+
+                for(x, y, w, h) in faces:
                     roi = image_array[y:y+h, x:x+w]
                     print(roi)
-≈                    x_train.append(roi)
+                    x_train.append(roi)
                     y_labels.append(id_)
 
-    with open("labels.pickle",'wb') as f :
-        pickle.dump(label_ids,f)
+    with open("labels.pickle", 'wb') as f:
+        pickle.dump(label_ids, f)
 
     recognizer.train(x_train, np.array(y_labels))
     recognizer.save("trainer.yml")

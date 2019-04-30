@@ -2,11 +2,19 @@ import psycopg2
 import os
 import requests
 
+
 def connect():
+    """Retrieve images from the program database on RDS.
+
+    Builds top level directory based on the list of names of known faces,
+    then retrieves the urls for each associated image to that name and
+    creates .png files locally for facial recoginition training.
+    """
+    
     conn = None
+
     try:
         print('connecting to the RDS database...')
-        print(os.environ.get('DB_HOST'), os.environ.get('DB_NAME'), os.environ.get('DB_USER'), os.environ.get('DB_PASSWORD'))
         conn = psycopg2.connect(
             host=os.environ.get('DB_HOST'),
             database=os.environ.get('DB_NAME'),
