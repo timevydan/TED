@@ -2,6 +2,11 @@
 Using a Raspberry Pi and a camera, this application uses facial recognition to say your name.
 
 ## User Stories
+* As a user, I want the system to recognize my face.
+* As a user, I want the system to say my name if it does recognize me.
+* As a user, if it does not recognize a person, I want it to either take a picture or start to record.
+* As a developer I want to use a Raspberry Pi and facial recognition to be able to differentiate people.
+* As a student, I want to create a project that is unique to what we have done in the past. 
 
 ## Getting Started
 
@@ -27,7 +32,9 @@ We will deploy this on AWS.
 
 ## Versioning
 
- 
+## Date Log
+ * Friday 4/19/19 -- Camera and RaspPi linked,  OS for Raspberry Pi Installed
+ * Monday 4/22/19 --  
 
 ## Authors
 

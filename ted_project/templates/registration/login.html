@@ -1,0 +1,15 @@
+{% extends 'generic/base.html' %}
+
+{% block title %}SIGN IN{% endblock title %}
+
+{% block content %}
+<div class="login-form container">
+  <form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit" />
+  </form>
+</div>
+{% endblock %}
