@@ -6,6 +6,15 @@ import pickle
 
 
 def find_faces():
+    """Detect faces in an image or frame.
+
+    Takes no arguments. Use Haarcascade feature modules to detect eyes and
+    frontal face view.
+
+    Returns:
+        No explicit returns. Will save a frame as a .png image if an unknown face is detected.
+    """
+
     labels = {}
     with open("./labels.pickle", 'rb') as f:
         org_labels = pickle.load(f)
@@ -22,6 +31,7 @@ def find_faces():
 
     picture_flag = False
     while True:
+
         # Capture Frame by Frame
         ret, frame = video_capture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -30,6 +40,7 @@ def find_faces():
         face_dic = {
             "known": 0,
             "total": 0}
+            
         # Draws a rectagle around the face
         for(x, y, w, h) in faces:
             face_dic["total"] += 1
@@ -64,9 +75,9 @@ def find_faces():
         
         # Shows Number faces dectected/known in frame
         cv2.putText(frame, "Number of faces detected: " + str(
-            face_dic["total"]),  (0, 100), cv2.FONT_HERSHEY_TRIPLEX, 0.5,  (255, 0, 0), 1)
+            face_dic["total"]), (0, 100), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255, 0, 0), 1)
         cv2.putText(frame, "Number of faces known: " + str(
-            face_dic["known"]),  (0, 120), cv2.FONT_HERSHEY_TRIPLEX, 0.5,  (255, 0, 0), 1)
+            face_dic["known"]), (0, 120), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255, 0, 0), 1)
 
         # Dipsplay the resulting frame
         cv2.imshow('Video', frame)
@@ -74,7 +85,7 @@ def find_faces():
         
         #Saves Picture 
         if face_dic["known"] == 0 and face_dic["total"] >= 1:
-            if picture_flag == False:
+            if not picture_flag:
                 picture_counter += 1
                 cv2.imwrite("./test_subjects/" +
                             str(picture_counter)+".png", frame)

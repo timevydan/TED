@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Face, Picture
 from .forms import FaceForm, PictureForm
-from django.views.generic import DetailView, ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView
 
 # Create your views here.
 
@@ -72,7 +71,7 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('urls', kwargs={'pk': self.kwargs['pk']})
 
 
-class DeleteFaceView(DeleteView):
+class DeleteFaceView(LoginRequiredMixin, DeleteView):
     """Delete a recognized visitor from the database."""
     model = Face
     template_name = 'ted/face_delete.html'
@@ -80,7 +79,7 @@ class DeleteFaceView(DeleteView):
     success_url = reverse_lazy('face_list')
 
 
-class DeletePictureView(DeleteView):
+class DeletePictureView(LoginRequiredMixin, DeleteView):
     """Delete a picture of a recognized visitor from the database."""
     model = Picture
     template_name = 'ted/picture_delete.html'
@@ -90,4 +89,3 @@ class DeletePictureView(DeleteView):
     def get_success_url(self):
         """Redirect to the list of pictures of a recognized visitor."""
         return reverse_lazy('urls', kwargs={'pk': self.object.face.id})
-        

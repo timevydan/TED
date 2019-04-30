@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS =['ec2-54-68-76-166.us-west-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['ec2-54-68-76-166.us-west-2.compute.amazonaws.com']
 
 
 # Application definition
@@ -135,12 +134,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ted.snakeeyes@gmail.com'
-EMAIL_HOST_PASSWORD = ' parseltongue11'
+EMAIL_HOST_USER = os.environ.get('FROM_ADDR')
+EMAIL_HOST_PASSWORD = os.environ.get('FROM_PASSWORD')
 
-#STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, '../static'),
-#]
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
