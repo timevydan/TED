@@ -4,11 +4,6 @@ import cv2
 import sys
 import pickle
 
-labels = {}
-with open("labels.pickle", 'rb') as f:
-    org_labels = pickle.load(f)
-    labels = {v: k for k, v in org_labels.items()}
-
 
 def find_faces():
     """Detect faces in an image or frame.
@@ -19,21 +14,27 @@ def find_faces():
     Returns:
         No explicit returns. Will save a frame as a .png image if an unknown face is detected.
     """
-    face_cascade = CascadeClassifier(
-        'haarcascade/haarcascade_frontalface_default.xml')
-    recognizer = cv2.face.LBPHFaceRecognizer_create()
-    recognizer.read("trainer.yml")
 
-    lefteye_cascade = CascadeClassifier('haarcascade/haarcascade_lefteye.xml')
+    labels = {}
+    with open("./labels.pickle", 'rb') as f:
+        org_labels = pickle.load(f)
+        labels = {v: k for k, v in org_labels.items()}
+
+    face_cascade = CascadeClassifier(
+        './haarcascade/haarcascade_frontalface_default.xml')
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
+    recognizer.read("./trainer.yml")
+
+    lefteye_cascade = CascadeClassifier('./haarcascade/haarcascade_lefteye.xml')
     video_capture = cv2.VideoCapture(0)
     picture_counter = 0
+
     picture_flag = False
     while True:
 
         # Capture Frame by Frame
         ret, frame = video_capture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
         faces = face_cascade.detectMultiScale(
             gray, scaleFactor=1.05, minNeighbors=8)
         face_dic = {
@@ -52,7 +53,8 @@ def find_faces():
                 frame = cv2.rectangle(
                     frame, (x, y,), (x+w, y+h), (0, 255, 0), 3)
 
-            if conf >= 75:
+            # conf  is the confidence level that detected face has been trained
+            if conf >= 85:
                 print(id_)
                 face_dic["known"] += 1
                 name = labels[id_]
@@ -69,7 +71,9 @@ def find_faces():
                 for (ex, ey, ew, eh) in eyes:
                     cv2.rectangle(roi_color, (ex, ey),
                                   (ex+ew, ey+eh), (255, 0, 255), 3)
-
+        
+        
+        # Shows Number faces dectected/known in frame
         cv2.putText(frame, "Number of faces detected: " + str(
             face_dic["total"]), (0, 100), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255, 0, 0), 1)
         cv2.putText(frame, "Number of faces known: " + str(
@@ -77,11 +81,13 @@ def find_faces():
 
         # Dipsplay the resulting frame
         cv2.imshow('Video', frame)
-
+        
+        
+        #Saves Picture 
         if face_dic["known"] == 0 and face_dic["total"] >= 1:
             if not picture_flag:
                 picture_counter += 1
-                cv2.imwrite("test_subjects/" +
+                cv2.imwrite("./test_subjects/" +
                             str(picture_counter)+".png", frame)
                 picture_flag = True
             picture_counter += 1
@@ -94,6 +100,5 @@ def find_faces():
 
     video_capture.release()
     cv2.destroyAllWindows()
-
-
-find_faces()
+if __name__ == "__main__":
+    find_faces()

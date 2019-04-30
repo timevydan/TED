@@ -1,6 +1,9 @@
 import psycopg2
 import os
 import requests
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
 
 def connect():
@@ -34,7 +37,11 @@ def connect():
         for row in rows:
             people[row[0]] = row[1]
             dir = './images/' + row[1]
-            os.mkdir(dir)
+
+            try:
+                os.mkdir(dir)
+            except:
+                pass
 
         cur.execute('select * from ted_face inner join ted_picture on ted_face.id=ted_picture.face_id;')
         row2 = cur.fetchall()
@@ -61,4 +68,6 @@ def connect():
 
 
 if __name__ == "__main__":
+    dotenv_path = join(dirname(__file__), '../.env')
+    load_dotenv(dotenv_path)
     connect()

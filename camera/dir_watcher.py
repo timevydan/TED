@@ -21,7 +21,7 @@ load_dotenv(dotenv_path)
 # that are determined to be unknown.
 class Watcher:
     """Establishes an observer to detect change in a directory."""
-    DIRECTORY_TO_WATCH = './camera/test_subjects'
+    DIRECTORY_TO_WATCH = './test_subjects'
 
     def __init__(self):
         self.observer = Observer()
@@ -53,10 +53,11 @@ class Handler(FileSystemEventHandler):
         The new file becomes the attachment to the email, then is cleared
         from the system after sending.
         """
-        for path, subdirs, files in os.walk('camera/test_subjects'):
+        for path, subdirs, files in os.walk('./test_subjects'):
             for name in files:
                 file_name = os.path.join(path, name)
                 test_name = os.path.abspath(file_name)
+                print(test_name)
         send_email(test_name)
         os.system('rm -rf ' + file_name)
 
@@ -71,6 +72,7 @@ def send_email(file_name):
     Args:
         file_name (str): filepath of an image to be the email attachmentment.
     """
+    
     # Define to/from email addresses and subject information
     from_addr = os.environ.get('FROM_ADDR')
     password = os.environ.get('FROM_PASSWORD')
@@ -106,6 +108,7 @@ def send_email(file_name):
     # send the email
     text = msg.as_string()
     server.sendmail(from_addr, to_addr, text)
+    print('email-sent')
 
     # close the server
     server.quit()
